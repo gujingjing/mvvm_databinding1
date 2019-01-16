@@ -3,21 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data class="MainDataBind">
+        <import type="android.view.View"/>
+        <import type="android.databinding.ObservableMap"/>
+
         <variable
             name="mainData"
-            type="gjj.mvvm.databinding1.MainData"/>
+            type="ObservableMap&lt;String,Object>"/>
+        <variable
+            name="mainPresent"
+            type="gjj.mvvm.databinding1.MainActivity.MainPresent"/>
     </data>
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".MainActivity">
 
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{mainData.name}" />
+                android:text='@{mainData["name"]}' />
+
+            <EditText
+                android:id="@+id/et_text_change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="输入 First Name"
+                android:onTextChanged="@{mainPresent::onTextChanged}"/>
+
+            <TextView
+                android:id="@+id/tv_click"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{mainPresent.onClick}"
+                android:text='@{mainData["clickText"]}' />
+
+
+            <TextView
+                android:id="@+id/tv_clickBind"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->mainPresent.onClickListenerBinding(mainData)}"
+                android:text='@{mainData["clickText"]}' />
+
+
         </LinearLayout>
 
 </layout>
